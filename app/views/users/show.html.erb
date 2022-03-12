@@ -1,0 +1,36 @@
+<!--ユーザーの詳細 -->
+<div>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  
+  <h5>名前          : <%= @user.name                 %></h5>
+  <h5>所持免許      : <%= @user.license              %></h5>
+  <h5>好きなメーカー: <%= @user.favorite_manufacture %></h5>
+  <h5>好きな車種    : <%= @user.favorite_motorcycle  %></h5>
+  <h5>お持ちのバイク: <%= @user.your_motorcycle      %></h5>
+  <h5>お住いの地域  : <%= @user.your_area            %></h5>
+  <h5>バイク歴      : <%= @user.have_been_riding     %></h5>
+  <h5>ETC           : <%= @user.etc                  %></h5>
+  <h5>性別          : <%= @user.sex                  %></h5>
+  
+  
+<% if @user == current_user %>
+  <p><%= link_to "プロフィール編集", edit_user_path %></p>
+<% end  %>
+</div>
+
+
+
+<!-- ユーザーが投稿した写真の一覧 -->
+
+<h1>自慢の一枚達</h1>
+
+<% @post_images.each do |post_image| %>
+  <div>
+    <%= link_to post_image_path(post_image.id) do %>
+      <%= image_tag post_image.get_image %>
+    <% end %>
+
+    <p>投稿者の一言 : <%= post_image.caption %></p>
+
+  </div>
+<% end%>

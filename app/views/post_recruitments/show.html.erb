@@ -1,0 +1,10 @@
+<div>
+  <p>投稿者       : <%= image_tag @post_recruitment.user.get_profile_image(100,100) %></p>
+  <p>投稿者の一言 : <%= @post_recruitment.body %></p>
+  <p>名前         : <%= @post_recruitment.user.name %></p>
+  <p>投稿日       : <%= @post_recruitment.created_at.strftime('%y/%m/%d') %></p>
+  
+  <% if @post_recruitment.user == current_user %>   
+   <%= link_to "削除", post_recruitment_path(@post_image), method: :delete %>
+  <% end %>
+</div>
