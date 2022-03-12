@@ -17,6 +17,7 @@ class PostRecruitmentsController < ApplicationController
 
   def show
       @post_recruitment = PostRecruitment.find(params[:id])
+      @post_comment = PostComment.new
   end
   
   def destroy

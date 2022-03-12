@@ -1,13 +1,17 @@
 <% @post_recruitments.each do |post_recruitment|  %>
 
-<div>
-  <p>        <%= image_tag post_recruitment.user.get_profile_image(100,100) %></p>
-  <p>名前:   <%= post_recruitment.user.name                                 %></p>
-  <p>募集:   <%= post_recruitment.body                                      %></p>
-  <p>投稿日: <%= post_recruitment.created_at.strftime('%y/%m/%d')           %></p>
-  
-  <% if post_recruitment.user == current_user %>
-   <%= link_to "削除", post_recruitment_path(post_recruitment), method: :delete %>
-  <% end %>
-</div>
+  <div>
+    <p>        <%= image_tag post_recruitment.user.get_profile_image(100,100) %>                        </p>
+    <p>名前:   <%= post_recruitment.user.name                                 %>                        </p>
+    
+    <%= link_to post_recruitment_path(post_recruitment.id ) do %>
+    <p>募集:   <%= post_recruitment.body                                      %>                        </p>
+    <% end %>
+    <p><%= link_to "#{post_recruitment.post_comments.count} コメント", post_recruitment_path(post_recruitment.id) %></p>
+    <p>投稿日: <%= post_recruitment.created_at.strftime('%y/%m/%d')           %>                        </p>
+    
+    <% if post_recruitment.user == current_user %>
+     <%= link_to "削除", post_recruitment_path(post_recruitment), method: :delete %>
+    <% end %>
+  </div>
 <% end %>

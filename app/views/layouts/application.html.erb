@@ -15,13 +15,15 @@
 
   <header>
     <% if user_signed_in? %>
-     
+     <li>
+       <%= link_to '自慢の一枚達', post_images_path %>
+     </li>
      <li>
        <%= link_to '募集一覧', post_recruitments_path %>
      </li>
      
      <li>
-      <%= link_to '自慢の一枚', new_post_image_path %>
+      <%= link_to '自慢の一枚投稿', new_post_image_path %>
      </li>
 
      <li>
