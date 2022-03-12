@@ -1,15 +1,27 @@
 <% @post_images.each do |post_image| %>
 
-<div>
-  
-  <%= link_to post_image_path(post_image.id) do %>
-    <%= image_tag post_image.get_image %>
-  <% end %>
-  
-  
-  
-  <p>投稿者:       <%= image_tag post_image.user.get_profile_image(100,100) %></p>
-  <p>投稿者の一言: <%= post_image.caption                                   %></p>
-  <p>名前:         <%= post_image.user.name                                 %></p>
-</div>
+  <div>
+    <%= link_to post_image_path(post_image.id) do %>
+      <%= image_tag post_image.get_image %>
+    <% end %>
+    
+    <p>投稿者:       <%= image_tag post_image.user.get_profile_image(100,100) %></p>
+    <p>投稿者の一言: <%= post_image.caption                                   %></p>
+    <p>名前:         <%= post_image.user.name                                 %></p>
+    
+    <% if post_image.favorited_by?(current_user) %>
+     <p>
+        <%= link_to post_image_favorites_path(post_image), method: :delete do %>
+        ♥<%= post_image.favorites.count %> いいね
+        <% end %>
+     </p>
+    <% else %>
+     <p>
+        <%= link_to post_image_favorites_path(post_image), method: :post do %>
+        ♡<%= post_image.favorites.count %> いいね
+        <% end %>
+     </p>
+    <% end %>
+  </div>
+
 <% end %>
