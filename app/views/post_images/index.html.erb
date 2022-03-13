@@ -12,7 +12,7 @@
 
 
               <p class="card-text"> 投稿者の一言: <%= post_image.caption %></p>
-              <span><i class="fas fa-user"></i> by: <%= post_image.user.name %></p></span>
+              <span><i class="fas fa-user"></i> by: <%= post_image.user.name %></span>
               <% if post_image.favorited_by?(current_user) %>
                 <p>
                 <%= link_to post_image_favorites_path(post_image), method: :delete do %>
@@ -31,5 +31,6 @@
     </div>
 
   <% end %>
+ 
   <%= paginate @post_images %>
 </div>

@@ -34,4 +34,8 @@
 
   </div>
 <% end%>
-<%= paginate @post_images %>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+<%= paginate @post_images,class:"page-link" %>
+</ul>
+</nav>
