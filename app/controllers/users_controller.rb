@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def show
       @user = User.find(params[:id])
-      @post_images = @user.post_images  #@userに関連する投稿すべてを取得して、@post_imagesに渡す
+      @post_images = @user.post_images.page(params[:page])  #@userに関連する投稿すべてを取得して、@post_imagesに渡す
   end
 
   def edit
@@ -9,9 +9,12 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = current_user
-    @user.update(user_params)
-    redirect_to user_path
+      @user = current_user
+      if @user.update(user_params)
+         redirect_to user_path
+      else
+       render :edit
+      end
   end
 
 

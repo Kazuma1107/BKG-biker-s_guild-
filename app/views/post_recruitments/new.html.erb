@@ -1,4 +1,17 @@
 <h1> ツーリング募集フォーム </h1>
+   
+   <% if @post_recruitment.errors.any? %>
+     <%= @post_recruitment.errors.count %>件のエラーが発生しました
+       <ul>
+        <% @post_recruitment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+       </ul>
+   <% end %>
+
+
+
+
  <%= form_with model: @post_recruitment do |f| %>
  
  <h4>募集</h4>

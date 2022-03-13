@@ -4,8 +4,11 @@ class PostCommentsController < ApplicationController
       post_recruitment = PostRecruitment.find(params[:post_recruitment_id])
       comment = current_user.post_comments.new(post_comment_params) #書き方省略　comment = PostComment.new(post_comment_params)  comment.user.id = current_user.id　と同義
       comment.post_recruitment_id = post_recruitment.id
-      comment.save
-      redirect_to post_recruitment_path(post_recruitment)
+      if comment.save
+         redirect_to post_recruitment_path(post_recruitment)
+      else
+         render :new
+      end
   end
   
   def show

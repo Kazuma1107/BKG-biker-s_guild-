@@ -12,6 +12,15 @@ class User < ApplicationRecord
   
   has_one_attached :profile_image
   
+  validates :name, presence: true, uniqueness: true, length: {minimum: 2, maximum: 20}
+  validates :license,                                length: {minimum: 2, maximum: 20}
+  validates :favorite_manufacture,                   length: {minimum: 2, maximum: 20}
+  validates :favorite_motorcycle,                    length: {minimum: 2, maximum: 20}
+  validates :your_motorcycle,                        length: {minimum: 2, maximum: 20}
+  validates :your_area,                              length: {minimum: 2, maximum: 20}
+  validates :have_been_riding,                       length: {minimum: 2, maximum: 20}
+  validates :etc,                                    length: {minimum: 2, maximum: 20}
+  validates :sex,                                    length: {minimum: 1, maximum: 20}
   def get_profile_image(width, height)
     
     unless profile_image.attached?

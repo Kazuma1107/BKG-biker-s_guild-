@@ -7,12 +7,15 @@ class PostRecruitmentsController < ApplicationController
   def create
       @post_recruitment = PostRecruitment.new(post_recruitment_params)
       @post_recruitment.user_id = current_user.id
-      @post_recruitment.save
-      redirect_to post_recruitments_path
+       if @post_recruitment.save
+         redirect_to post_recruitments_path
+       else
+         render :new
+       end
   end
 
   def index
-      @post_recruitments = PostRecruitment.all
+      @post_recruitments = PostRecruitment.page(params[:page])
   end
 
   def show

@@ -3,7 +3,8 @@ class PostImage < ApplicationRecord
   belongs_to        :user
   has_one_attached :image
   
-  
+  validates :image, presence: true
+  validates :caption,  presence: true, length: {maximum: 200}
   
   
   #画像が投稿されなかった場合の処理、Activestrageに用意した画像を格納する　
