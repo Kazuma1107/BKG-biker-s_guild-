@@ -1,28 +1,35 @@
-<% @post_images.each do |post_image| %>
+<div class="card-list-container py-5">
+  <% @post_images.each do |post_image| %>
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+      <%= link_to post_image_path(post_image.id) do %>
+      <%= image_tag post_image.get_image, class:"card-img-top";  %>
+      <% end %>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-2">
+            <p><%= image_tag post_image.user.get_profile_image(100,100), class:"mt-3 rounded-circle"; %></p>
+            </div>
 
-  <div>
-    <%= link_to post_image_path(post_image.id) do %>
-      <%= image_tag post_image.get_image %>
-    <% end %>
-    
-    <p>投稿者:       <%= image_tag post_image.user.get_profile_image(100,100) %></p>
-    <p>投稿者の一言: <%= post_image.caption                                   %></p>
-    <p>名前:         <%= post_image.user.name                                 %></p>
-    
-    <% if post_image.favorited_by?(current_user) %>
-     <p>
-        <%= link_to post_image_favorites_path(post_image), method: :delete do %>
-        ♥<%= post_image.favorites.count %> いいね
-        <% end %>
-     </p>
-    <% else %>
-     <p>
-        <%= link_to post_image_favorites_path(post_image), method: :post do %>
-        ♡<%= post_image.favorites.count %> いいね
-        <% end %>
-     </p>
-    <% end %>
-  </div>
 
-<% end %>
-<%= paginate @post_images %>
+              <p class="card-text"> 投稿者の一言: <%= post_image.caption %></p>
+              <span><i class="fas fa-user"></i> by: <%= post_image.user.name %></p></span>
+              <% if post_image.favorited_by?(current_user) %>
+                <p>
+                <%= link_to post_image_favorites_path(post_image), method: :delete do %>
+                ♥<%= post_image.favorites.count %> いいね
+                <% end %>
+                </p>
+                <% else %>
+                <p>
+                <%= link_to post_image_favorites_path(post_image), method: :post do %>
+                ♡<%= post_image.favorites.count %> いいね
+                <% end %>
+                </p>
+                <% end %>
+          </div>
+        </div>
+    </div>
+
+  <% end %>
+  <%= paginate @post_images %>
+</div>
