@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  
+ 
+  def index
+      @users = User.all
+  end
+  
   def show
       @user = User.find(params[:id])
       @post_images = @user.post_images.page(params[:page])  #@userに関連する投稿すべてを取得して、@post_imagesに渡す

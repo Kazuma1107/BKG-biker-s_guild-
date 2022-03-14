@@ -9,18 +9,23 @@ class User < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   
+  #自分がフォローされるとき
+  has_many :reverse_of_relationships, class_name: "Relationship",  foreign_key: "followed_id", dependent: :destroy
+  #自分をフォローしている人をフォローされている関係を通じて参照
+  has_many :followers, through: :reverse_of_relationships, source: :follower
+  
+  #自分がフォローするとき
+  has_many :relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  #自分がフォローしている人をフォローしている関係を通じて参照
+  has_many :followings, through: :relationships, source: :followed
+  
+  
+  
   
   has_one_attached :profile_image
   
   validates :name, presence: true, uniqueness: true, length: {minimum: 2, maximum: 20}
-  validates :license,                                length: {minimum: 2, maximum: 20}
-  validates :favorite_manufacture,                   length: {minimum: 2, maximum: 20}
-  validates :favorite_motorcycle,                    length: {minimum: 2, maximum: 20}
-  validates :your_motorcycle,                        length: {minimum: 2, maximum: 20}
-  validates :your_area,                              length: {minimum: 2, maximum: 20}
-  validates :have_been_riding,                       length: {minimum: 2, maximum: 20}
-  validates :etc,                                    length: {minimum: 2, maximum: 20}
-  validates :sex,                                    length: {minimum: 1, maximum: 20}
+  
   def get_profile_image(width, height)
     
     unless profile_image.attached?
