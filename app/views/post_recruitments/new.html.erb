@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row no-gutters">
     <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
-      <h5 class="text-dark bg-light p-4 mb-0">画像投稿フォーム</h5>
+      <h5 class="text-dark bg-light p-4 mb-0">ツーリング募集フォーム</h5>
         <div class="form-body p-4">
           <h5> 友達を探そう</h5>
             <%= form_with model: @post_recruitment do |f| %>
@@ -14,7 +14,7 @@
                 <h4>募集</h4>
                 <%= f.text_field :body,class:"form-control", rows:"3", placeholder:"募集内容をここに" %>
                 </hr>
-                <br><%= f.submit '    投稿    ', class:"btn btn-secondary" %>
+                <br><%= f.submit '    投稿    ', class:"btn btn-info" %>
             <% end %>
         </div>
     </div>

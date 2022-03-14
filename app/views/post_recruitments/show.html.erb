@@ -1,35 +1,64 @@
-<div>
-  <p>投稿者       : <%= image_tag @post_recruitment.user.get_profile_image(100,100) %></p>
-  <p>投稿者の一言 : <%= @post_recruitment.body                                      %></p>
-  <p>名前         : <%= @post_recruitment.user.name                                 %></p>
-  <p>投稿日       : <%= @post_recruitment.created_at.strftime('%y/%m/%d')           %></p>
-
-  <% if @post_recruitment.user == current_user %>
-   <%= link_to "削除", post_recruitment_path(@post_recruitment), method: :delete %>
-  <% end %>
+<div class="card-list-container py-5">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <p>投稿者<%= image_tag @post_recruitment.user.get_profile_image(100,100) %></p>
+        </div>
+          <div class="col-10">
+            <p class="card-title"><span><i class="fas fa-user"></i>名前:<%= @post_recruitment.user.name%></span></p>
+              <p class="card-text">募集内容<%= @post_recruitment.body %></p>
+              <span><p>投稿日<%= @post_recruitment.created_at.strftime('%y/%m/%d') %></p></span>
+              <% if @post_recruitment.user == current_user %>
+                <%= link_to "削除", post_recruitment_path(@post_recruitment), method: :delete, class:"btn btn-danger",data: {confirm: "本当に削除しますか？"} %>
+              <% end %>
+              <p>コメント件数: <%= @post_recruitment.post_comments.count %> </p>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-
-<div>
-
-  <p>コメント件数: <%= @post_recruitment.post_comments.count %>   </p>
+<div class="card-list-container py-5">
   <% @post_recruitment.post_comments.each do |post_comment| %>
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-2">
+            <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
+          </div>
+            <div class="col-10">
+              <p class="card-title"><span><i class="fas fa-user"></i>名前:<%= post_comment.user.name %></span></p>
+              <p class="card-text"><%= post_comment.comment %></p>
+              <span><p>返信日<%= post_comment.created_at.strftime('%y/%m/%d')  %></p></span>
+                <% if post_comment.user == current_user %>
+                  <%= link_to "削除", post_recruitment_post_comment_path(post_comment.post_recruitment, post_comment), method: :delete, class:"btn btn-danger",data: {confirm: "本当に削除しますか？"} %>
+                <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+   <% end %>
+</div>                      
 
-  <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
-    <p>名前:<%= post_comment.user.name %></p><br>
-    <%= post_comment.comment %><br>
-    <%= post_comment.created_at.strftime('%y/%m/%d')  %> <% post_comment.comment %><br>
-    <% if post_comment.user == current_user %>
-      <%= link_to "削除", post_recruitment_post_comment_path(post_comment.post_recruitment, post_comment), method: :delete %>
-    <% end %>
-
-
-  <% end %>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">ツーリング参加フォーム</h5>
+        <div class="form-body p-4">
+          <h5> 募集内容に返信</h5>
+            <%= form_with model: [@post_recruitment, @post_comment] do |f| %>
+             <div class="input-group mb-3 mt-4">
+                <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fas fa-pencil"></i></span>
+                </div>
+              </div>
+                <h4>参加</h4>
+          　　    <%= f.text_area :comment, rows: '5', placeholder: "返信内容をこちらにどうぞ" %>
+                <br><%= f.submit "送信する", class:"btn btn-info" %>
+            <% end %>
+        </div>
+      </div>
+  </div>
 </div>
 
-<div>
-  <%= form_with model: [@post_recruitment, @post_comment] do |f| %>
-  <%= f.text_area :comment, rows: '5', placeholder: "コメントはこちら" %>
-  <%= f.submit "送信する" %>
-  <% end %>
-</div>
