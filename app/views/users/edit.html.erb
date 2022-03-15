@@ -1,5 +1,4 @@
-<h2>プロフィール編集</h2>
-  <% if @user.errors.any? %>
+　<% if @user.errors.any? %>
     <%= @user.errors.count %>件のエラーが発生しました
       <ul>
         <% @user.errors.full_messages.each do |message| %>
@@ -8,39 +7,64 @@
       </ul>
   <% end %>
 
+<div class='container'>
+  <div class='row'>
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+      <h2>プロフィール編集</h2>
+      <%= form_with model: @user do |f| %>
+       <div class="form-group">
+         <label for = "inputName">Name</label>
+         <%= f.text_field :name, class: "form-control name", autofocus: true, id:"inputName", placeholder: "名前" %><br>
+       </div>
 
-<%= form_with model: @user do |f| %>
+       <div class="form-group">
+         <label for = "inputLicense">所持免許</label>
+         <%= f.text_field :license,class: "form-control 所持免許", autofocus: true, id:"inputLicense", placeholder: "例　大型自動二輪" %><br>
+       </div>
 
- <label for = "inputName">Name</label>
- <%= f.text_field :name, autofocus: true, id:"inputName", placeholder: "名前" %><br>
- 
- <label for = "inputLicense">所持免許</label>
- <%= f.text_field :license, autofocus: true, id:"inputLicense", placeholder: "例　大型自動二輪" %><br>
- 
- <label for = "inputFavoriteManufacuture">好きなメーカー</label>
- <%= f.text_field :favorite_manufacture, autofocus: true, id:"inputFavoriteManufacuture", placeholder: "HONDA" %><br>
- 
- <label for = "inputFavoriteMotorcycle">好きな車種</label>
- <%= f.text_field :favorite_motorcycle, autofocus: true, id:"inputFavoriteMotorcycle", placeholder: "CBR250RR" %><br>
- 
- <label for = "inputYourMotorcycle">お持ちのバイク</label>
- <%= f.text_field :your_motorcycle, autofocus: true, id:"inputYourMotorcycle", placeholder: "レヴル1100" %><br>
- 
- <label for = "inputYourArea">お住いの地域</label>
- <%= f.text_field :your_area, autofocus: true, id:"inputYourArea", placeholder: "例　大阪" %><br>
- 
- <label for = "inputHaveBeenRiding">バイク歴</label>
- <%= f.text_field :have_been_riding, autofocus: true, id:"inputHaveBeenRiding", placeholder: "例　" %><br>
- 
- 
- <label for = "inputETC">ETC装備</label>
- <%= f.text_field :etc, autofocus: true, id:"inputETC", placeholder: "例　あり" %><br>
- 
- <label for = "inputSex">性別</label>
- <%= f.text_field :sex, autofocus: true, id:"inputSex", placeholder: "例　男" %><br>
+       <div class="form-group">
+         <label for = "inputFavoriteManufacuture">好きなメーカー</label>
+         <%= f.text_field :favorite_manufacture, class: "form-control 好きなメーカー",autofocus: true, id:"inputFavoriteManufacuture", placeholder: "HONDA" %><br>
+       </div>
 
- <label for = "inputImage">ProfileImage</label>
- <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %><br>
- <%= f.submit "変更を保存" %>
+       <div class="form-group">
+         <label for = "inputFavoriteMotorcycle">好きな車種</label>
+         <%= f.text_field :favorite_motorcycle,class: "form-control 好きな車種", autofocus: true, id:"inputFavoriteMotorcycle", placeholder: "CBR250RR" %><br>
+       </div>
 
-<% end%>
+       <div class="form-group">
+         <label for = "inputYourMotorcycle">お持ちのバイク</label>
+         <%= f.text_field :your_motorcycle, class: "form-control お持ちのバイク",autofocus: true, id:"inputYourMotorcycle", placeholder: "レヴル1100" %><br>
+       </div>
+
+       <div class="form-group">
+         <label for = "inputYourArea">お住いの地域</label>
+         <%= f.text_field :your_area,class: "form-control お住まいの地域", autofocus: true, id:"inputYourArea", placeholder: "例　大阪" %><br>
+       </div>
+
+       <div class="form-group">
+         <label for = "inputHaveBeenRiding">バイク歴</label>
+         <%= f.text_field :have_been_riding,class: "form-control バイク歴", autofocus: true, id:"inputHaveBeenRiding", placeholder: "例　" %><br>
+       </div>
+
+       <div class="form-group">
+         <label for = "inputETC">ETC装備</label>
+         <%= f.text_field :etc,class: "form-control ETC装備", autofocus: true, id:"inputETC", placeholder: "例　あり" %><br>
+       </div>
+
+       <div class="form-group">
+         <label for = "inputSex">性別</label>
+         <%= f.text_field :sex,class: "form-control　性別", autofocus: true, id:"inputSex", placeholder: "例　男" %>
+       </div>
+
+       <div class="form-group">
+         <label for = "inputImage">ProfileImage</label>
+         <%= f.file_field :profile_image,class: "form-control-file user_image",  placeholder: "プロフィール画像", accept: "image/*" %><br>
+       </div>
+
+       <div class="form-group">
+　　　 <%= f.submit class: 'btn btn-secondary' %>
+　　　 </div>
+      <% end%>
+  </div>
+</div>
