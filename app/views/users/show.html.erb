@@ -16,6 +16,9 @@
         <tr><th><h5>バイク歴<br><%= @user.have_been_riding %></h5></th></tr>
         <tr><th><h5>ETC<br><%= @user.etc %></h5></th></tr>
         <tr><th><h5>性別<br><%= @user.sex %></h5></th></tr>
+        <tr><th>follows</th><th><%= link_to @user.followings.count, user_followings_path(@user) %></th></tr>
+        <tr><th>followers</th><th><%= link_to @user.followers.count, user_followers_path(@user) %></th></tr>
+        <td><%= render "relationships/btn", user: @user %></td>
       </table>
       <% if @user == current_user %>
         <p><%= link_to "プロフィール編集", edit_user_path, class:"btn btn-info" %></p>
