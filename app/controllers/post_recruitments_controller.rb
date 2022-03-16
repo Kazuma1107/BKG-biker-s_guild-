@@ -1,5 +1,7 @@
 class PostRecruitmentsController < ApplicationController
-  
+   before_action :authenticate_user!
+   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
+
   def new
       @post_recruitment = PostRecruitment.new
   end
@@ -10,7 +12,7 @@ class PostRecruitmentsController < ApplicationController
        if @post_recruitment.save
          redirect_to post_recruitments_path
        else
-         render :new
+         render :show
        end
   end
 
@@ -33,6 +35,13 @@ class PostRecruitmentsController < ApplicationController
   
   def post_recruitment_params
       params.require(:post_recruitment).permit(:body)
+  end
+  
+  def ensure_correct_user
+        @post_recruitment = PostRecruitment.find(params[:id])
+      unless @post_recruitment.user == current_user
+        redirect_to post_recruitments_path
+      end
   end
   
 end

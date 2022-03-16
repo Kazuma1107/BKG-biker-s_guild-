@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">ツーリング参加フォーム</h5>
+        <div class="form-body p-4">
+          <h5> 募集内容に返信</h5>
+            <%= form_with model: [@post_recruitment, @post_comment] do |f| %>
+             <div class="input-group mb-3 mt-4">
+                <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fas fa-pencil"></i></span>
+                </div>
+              </div>
+                <h4>参加</h4>
+          　　    <%= f.text_area :comment, rows: '5', placeholder: "返信内容をこちらにどうぞ" %>
+                <br><%= f.submit "送信する", class:"btn btn-info" %>
+            <% end %>
+        </div>
+      </div>
+  </div>
+</div>
