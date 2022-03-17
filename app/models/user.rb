@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :post_recruitments,dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :group_users, dependent: :destroy
 
 # 自分がフォローされる
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
