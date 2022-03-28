@@ -1,2 +1,27 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<div id="container">
+     <div id="theTarget">
+       <div class="image1"></div>
+       <div class="image2"></div>
+       <div class="image3"></div>
+       <div class="image4"></div>
+       <div class="image5"></div>
+     </div>
+   </div>
+
+<div class="container">
+  <div class="row">
+    <div class="p-5 mx-auto col-2 col-sm-10 col-lg-8 col-xl-6">
+      <h1><i class=""></i><strong>Biker's Guild</strong>
+      <p>最高の仲間と<br>バイクライフを。</p>
+      <div class="btn-wrapper col-12 mx-auto">
+        <div class="row">
+          <%= link_to "Log in", new_user_session_path, class:"btn btn-info btn-sm btn-block mb-3 sign_in"%>
+        </div>
+        <div class="row">
+          <%= link_to "Sign up", new_user_registration_path, class:"btn btn-success btn-sm btn-block sign_up" %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
