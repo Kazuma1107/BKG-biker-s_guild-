@@ -5,14 +5,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :post_images, dependent: :destroy
-  has_many :post_recruitments,dependent: :destroy
+  has_many :post_recruitments, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :group_users, dependent: :destroy
 
-# 自分がフォローされる
+  # 自分がフォローされる
   has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
-  #自分をフォローしている人
+  # 自分をフォローしている人
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
   # 自分がフォローする
@@ -31,7 +31,7 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-  
+
   def self.search_for(content, method)
     if method == 'perfect'
       User.where(name: content)
@@ -44,20 +44,24 @@ class User < ApplicationRecord
     end
   end
 
-
+  # ゲストユーザの定義
+  def self.guest
+    find_or_create_by!(name: 'guestuser', email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
 
   has_one_attached :profile_image
 
-  validates :name, presence: true, uniqueness: true, length: {minimum: 2, maximum: 20}
+  validates :name, presence: true, uniqueness: true, length: { minimum: 2, maximum: 20 }
 
   def get_profile_image(width, height)
-
     unless profile_image.attached?
 
-           file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-           profile_image.attach(io: File.open(file_path),filename: 'default-image.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-           profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
-
 end
